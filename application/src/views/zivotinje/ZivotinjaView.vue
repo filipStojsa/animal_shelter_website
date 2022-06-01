@@ -43,9 +43,12 @@ export default {
         var vrsta = this.$route.params.vrsta
         var id = this.$route.params.id
         this.zivotinja = zivotinje.find(z => z.vrsta == vrsta)['z'].find(z => z.id == id)
-        // $('.zivotinja').css('color', 'red')
         // var elem = $(".zivotinja")
         // elem.addClass("crveno")
+    },
+
+    mounted() {
+        // this.$refs.zivotinja.style.color = 'red'
     }
 
 }
