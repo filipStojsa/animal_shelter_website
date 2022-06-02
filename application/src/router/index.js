@@ -6,6 +6,9 @@ import VrstaView from '../views/zivotinje/VrstaView.vue'
 import ZivotinjeView from '../views/zivotinje/ZivotinjeView.vue'
 import ZivotinjaView from '../views/zivotinje/ZivotinjaView.vue'
 
+// oglas
+import DodajOglasView from '../views/DodajOglasView.vue'
+
 const routes = [
   {
     path: '/',
@@ -26,6 +29,11 @@ const routes = [
     path: '/zivotinje/:vrsta/:id',
     name: 'zivotinja',
     component: ZivotinjaView
+  },
+  {
+    path: '/dodaj',
+    name: 'dodaj',
+    component: DodajOglasView
   },
 ]
 

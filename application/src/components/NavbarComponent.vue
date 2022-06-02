@@ -1,8 +1,8 @@
 <template>
-<nav class="navbar navbar-expand-lg navbar-light bg-light">
+<nav class="navbar navbar-expand-lg navbar-light">
   <div class="container-fluid">
 
-    <img src="/images/logo.png" id="logoImg" alt="">
+    <img src="/images/logo_azil.png" id="logoImg" alt="">
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
@@ -26,19 +26,19 @@
 <style lang="less">
 
 #logoImg {
-  width: 100px;
+  width: 150px;
 }
 
 nav {
   padding: 30px;
-  background-color: #83C5BE;
+  background-color: #7cb2be;
 
   a {
     font-weight: bold;
     color: #2c3e50;
 
     &.router-link-exact-active {
-      color: #83C5BE;
+      color: #FFDDD2;
     }
   }
 }
