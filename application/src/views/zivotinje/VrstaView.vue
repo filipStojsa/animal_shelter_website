@@ -1,5 +1,6 @@
 <template>
     <div style="padding:35px">
+        <router-view :key="this.$route.path">
         <div class="row centriraj" >
             <div class="col-sm-12 centrirajKolonu">
                 <p class="breadcrumbs"> 
@@ -63,6 +64,7 @@
             </div>
         </div>
         
+        </router-view>
     </div>
 </template>
 
@@ -204,13 +206,21 @@ export default {
                     if (z.naziv.toUpperCase().includes(this.kljuc.toUpperCase())) this.zivotinje.push(z)
                 })
             }
+        },
+        initData() {
+            this.vrsta = this.$route.params.vrsta
+            var zivotinjeJSON = zivotinje.find(z => z.vrsta == this.vrsta)
+            this.zivotinje = zivotinjeJSON.z
+
+            document.title = 'Azil Aska - ' + this.vrsta
         }
     },
 
     created() {
-        this.vrsta = this.$route.params.vrsta
-        var zivotinjeJSON = zivotinje.find(z => z.vrsta == this.vrsta)
-        this.zivotinje = zivotinjeJSON.z
+        
+        this.initData()
+
+        // this.$watch(() => this.$route.params, this.initData)
     },
     
 }

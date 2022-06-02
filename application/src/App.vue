@@ -1,14 +1,13 @@
 <template>
   <div>
     <nav>
-      <router-link to="/">Početna stranica</router-link> |
-
+      <router-link to="/"><i class="fa-solid fa-house"></i>&nbsp;Početna stranica</router-link> |
 
       <!-- zivotinje -->
 
       <!-- Napomena: Usvojena je pretpostavka da ne postoji stranica koja prikazuje sve zivotinje svih kategorija. -->
       <!-- <router-link to="/zivotinje">Životinje</router-link> | -->
-      Životinje |
+      <i class="fa-solid fa-paw"></i>&nbsp;Životinje |
 
       <span v-for="vrsta in zivotinje" :key='vrsta.vrsta'>
           <!-- TODO react to route change -->
@@ -19,6 +18,8 @@
           </span>
       </span>
       
+      <router-link to="/onama"><i class="fa-solid fa-check"></i>&nbsp;O nama</router-link> |
+      <router-link to="/mojnalog"><i class="fa-solid fa-user"></i>&nbsp;Moj nalog</router-link> |
     </nav>
     <router-view/>
   </div>

@@ -6,6 +6,9 @@ import VrstaView from '../views/zivotinje/VrstaView.vue'
 import ZivotinjeView from '../views/zivotinje/ZivotinjeView.vue'
 import ZivotinjaView from '../views/zivotinje/ZivotinjaView.vue'
 
+import ONamaView from '../views/ONamaView.vue'
+import MojNalogView from '../views/MojNalogView.vue'
+
 const routes = [
   {
     path: '/',
@@ -26,6 +29,16 @@ const routes = [
     path: '/zivotinje/:vrsta/:id',
     name: 'zivotinja',
     component: ZivotinjaView
+  },
+  {
+    path: '/onama',
+    name: 'onama',
+    component: ONamaView
+  },
+  {
+    path: '/mojnalog',
+    name: 'mojnalog',
+    component: MojNalogView
   },
 ]
 

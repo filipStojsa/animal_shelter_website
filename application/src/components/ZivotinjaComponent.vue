@@ -33,6 +33,10 @@
         margin:15px;
         box-shadow: 5px 10px 18px #d5d4d3;
     }
+    #zivotinja:hover {
+        color: #FFDDD2;
+        background-color: #b2755f;
+    }
     #naziv {
         font-size: 30px;
         font-weight: bold;

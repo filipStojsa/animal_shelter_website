@@ -11,6 +11,13 @@ export default {
   name: 'HomeView',
   components: {
     
+  },
+  methods: {
+    
+  },
+  created() {
+    document.title = 'Azil Aska - Početna'
+    
   }
 }
 </script>

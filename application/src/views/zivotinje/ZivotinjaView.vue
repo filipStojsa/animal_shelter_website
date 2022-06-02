@@ -39,9 +39,9 @@
                     <div class="col-sm-12">
                         <iframe width="560" height="315" :src="zivotinja.video" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen style="border-radius:5px"></iframe>
                     </div>
-                    
                     <div class="col-sm-12">
-
+                        <hr>
+                        <button class="btn dugme" @click="nazad()"><i class="fa-solid fa-arrow-left"></i>&nbsp;Nazad</button>
                     </div>
                 </div>
             </div>
@@ -84,6 +84,15 @@
         color:#deeceb;
         background-color: #006D77;
     }
+    .dugme {
+        color: #006D77;
+        background-color: #deeceb;
+        border: 2px solid #006D77;
+    }
+    .dugme:hover {
+        color:#deeceb;
+        background-color: #006D77;
+    }
     .breadcrumbs{
         padding: 20px;
     }
@@ -121,15 +130,25 @@ export default {
 
     methods: {
         prikaziSlike(){
-            $('#zivotinja').hide(1500)
-            $('#galerijaSlika').show(1500)
+            $('#zivotinja').hide(800)
+            $('#galerijaSlika').show(800)
+        },
+        initData() {
+            var vrsta = this.$route.params.vrsta
+            var id = this.$route.params.id
+            this.zivotinja = zivotinje.find(z => z.vrsta == vrsta)['z'].find(z => z.id == id)
+
+            document.title = 'Azil Aska - ' + this.zivotinja.naziv
+        },
+        nazad() {
+            $('#galerijaSlika').hide(800)
+            $('#zivotinja').show(800)
         }
     },
 
     created(){
-        var vrsta = this.$route.params.vrsta
-        var id = this.$route.params.id
-        this.zivotinja = zivotinje.find(z => z.vrsta == vrsta)['z'].find(z => z.id == id)
+        this.initData()
+        // this.$watch(() => this.$route.params, this.initData)
     },
 
     mounted() {
