@@ -42,6 +42,16 @@ const oglasi = [
         datum: '2022-05-28',
         komentari: []
     },
+    {
+        ime: 'Labrador Toni',
+        opis: 'Veoma veseo.',
+        tel: '+381 61 132 4657',
+        username: 'pera',
+        datum: '2022-05-28',
+        komentari: [
+        
+        ]
+    },
 ]
 
 export default oglasi

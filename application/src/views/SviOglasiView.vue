@@ -62,6 +62,7 @@
     box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
     padding: 10px;
     margin-bottom: 15px;
+    border: 2px solid rgb(21, 60, 86);
 }
 
 .home p {
@@ -69,16 +70,21 @@
     font-size: 20px;
 }
 
-.btn-outline-primary {
+/* .btn-outline-primary {
     color: #006D77;
     border-color: #006D77;
     border-width: 1px;
-}
+} */
 
-.btn-outline-primary:hover {
+.btn-outline-primary{
     color: white;
     background-color: #006D77;
-    border-width: 1px;
+    border: 0px;
+
+}
+.btn-outline-primary:hover{
+    color: white;
+    background-color: #013b40;
 
 }
 </style>
@@ -96,21 +102,30 @@ export default {
     },
 
     created() {
+        document.title = 'Azil aska - Oglasi'
         if(localStorage.getItem('oglasi') == null) {
             this.sviOglasi = localStorage.setItem(JSON.stringify('oglasi', oglasi))
         }
         else {
             this.sviOglasi = JSON.parse(localStorage.getItem('oglasi'))
-            if(this.sviOglasi[0].ime == "") {
-                this.sviOglasi.shift()
+            if (this.sviOglasi.length > 0) {
+                if(this.sviOglasi[0].ime == "") {
+                    this.sviOglasi.shift()
+                }
             }
         }
     },
 
     methods: {
         addComment(oglas) {
+            var user = localStorage.getItem('logged')
+            if (user == null) {
+                alert('Da biste ostavili komentar morate se najpre ulogovati!')
+                return
+            }
+            user = JSON.parse(user)
             let com = {
-                username: localStorage.getItem('loged'),
+                username: user.username,
                 tekst: this.comment
             }
             this.sviOglasi.find(o => o.ime == oglas.ime).komentari.push(com)

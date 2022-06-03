@@ -1,7 +1,10 @@
 <template>
+  <div>
   <NavbarComponent></NavbarComponent>
-  <div class="container">
+  <div>
     <router-view/>
+  </div>
+  <BannerComponent :reklame="reklame"></BannerComponent>
   </div>
 </template>
 
@@ -25,14 +28,19 @@ body {
 <script>
   import zivotinje from './data/zivotinje.js'
   import NavbarComponent from '@/components/NavbarComponent.vue'
+  import BannerComponent from './components/BannerComponent.vue'
+
+  import reklame from '@/data/reklame.js'
 
   export default {
     components: {
-      NavbarComponent
-    },
+    NavbarComponent,
+    BannerComponent,
+},
     data() {
       return {
-        zivotinje: zivotinje
+        zivotinje: zivotinje,
+        reklame: reklame,
       }
     }
   }

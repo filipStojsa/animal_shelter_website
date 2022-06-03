@@ -1,9 +1,12 @@
 <template>
+<div>
   <div class="home row">
-    <h2>
-      <i class="fa-solid fa-rectangle-ad"></i>
-      <strong> Ovo su najnoviji oglasi na našem saju, pogledaj ih!</strong>
-    </h2>
+    <div class="col-sm-12" style="padding-bottom: 20px">
+      <h2>
+        <i class="fa-solid fa-rectangle-ad"></i>
+        <strong> Ovo su najnoviji oglasi na našem saju, pogledaj ih!</strong>
+      </h2>
+    </div>
 
     <!-- fresh adds -->
 
@@ -39,11 +42,11 @@
           možda žeilš da pomogneš nekome ko traži svog ljubimca...
         </p>
 
-        <button class="btn btn-outline-primary">
+        <!-- <button class="btn btn-outline-primary">
           <router-link class="btn-router" to="/zivotinje">Zivotinje</router-link>
-        </button> &nbsp;&nbsp;&nbsp;
+        </button> &nbsp;&nbsp;&nbsp; -->
         <button class="btn btn-outline-primary">
-          <router-link class="btn-router" to="/izgubljeni">Izgubljeni ljubimci</router-link>
+          <router-link class="btn-router" to="/svioglasi">Izgubljeni ljubimci</router-link>
         </button>
       
       </div>
@@ -78,13 +81,14 @@
         &nbsp;&nbsp;&nbsp;
 
         <button class="btn btn-outline-primary">
-          <router-link class="btn-router" to="/o_nama">O nama</router-link>
+          <router-link class="btn-router" to="/onama">O nama</router-link>
         </button>
       
       </div>
 
       
   </div>
+</div>
 </template>
 
 <style scoped>
@@ -179,8 +183,10 @@ export default {
     }
     else {
       this.sviOglasi = JSON.parse(localStorage.getItem('oglasi'))
-      if(this.sviOglasi[0].ime == "") {
-        this.sviOglasi.shift()
+      if (this.sviOglasi.length > 0) {
+        if(this.sviOglasi[0].ime == "") {
+          this.sviOglasi.shift()
+        }
       }
     }
     localStorage.setItem('korisnici', JSON.stringify(korisnici))

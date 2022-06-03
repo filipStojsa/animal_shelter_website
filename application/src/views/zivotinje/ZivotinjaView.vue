@@ -2,9 +2,11 @@
     <div class="">
         <div class="row breadcrumbs">
             <div class="col-sm-12">
-                 Životinje&nbsp;<i class="fa-solid fa-arrow-right"></i>&nbsp;
+                <router-link to="/zivotinje">Životinje</router-link>
+                &nbsp;<i class="fa-solid fa-arrow-right"></i>&nbsp;
                 <router-link :to="'/zivotinje/' + this.$route.params.vrsta" >{{this.$route.params.vrsta}}</router-link>&nbsp;<i class="fa-solid fa-arrow-right"></i>&nbsp;
-                <router-link :to="'/zivotinje/' + this.$route.params.vrsta + '/' + zivotinja.id" >{{zivotinja.naziv}}</router-link>&nbsp;
+                <!-- <router-link :to="'/zivotinje/' + this.$route.params.vrsta + '/' + zivotinja.id" >{{zivotinja.naziv}}</router-link>&nbsp; -->
+                {{zivotinja.naziv}}
             </div>
         </div>
         <div class="row zivotinjeRow">

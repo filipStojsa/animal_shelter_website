@@ -10,13 +10,12 @@
 
     <div class="collapse navbar-collapse" id="navbarNav">
       <div class="navbar-nav">
-          <router-link class="nav-item" to="/">Početna stranica</router-link>&nbsp;&nbsp;&nbsp;
-          <router-link class="nav-item" to="/zivotinje">Zivotinje</router-link>&nbsp;&nbsp;&nbsp;
-          <router-link class="nav-item" to="/svioglasi">Izgubljeni ljubimci</router-link>&nbsp;&nbsp;&nbsp;
-          <router-link class="nav-item" to="/dodaj">Dodaj oglas</router-link>&nbsp;&nbsp;&nbsp;
-          <router-link class="nav-item" to="/nalog">Moj nalog</router-link>&nbsp;&nbsp;&nbsp;
-          <router-link class="nav-item" to="/o_nama">O nama</router-link>&nbsp;&nbsp;&nbsp;
-
+          <router-link class="nav-item" to="/"><i class="fa-solid fa-house"></i>&nbsp;Početna stranica</router-link>&nbsp;&nbsp;&nbsp;
+          <router-link class="nav-item" to="/zivotinje"><i class="fa-solid fa-paw"></i>&nbsp;Životinje</router-link>&nbsp;&nbsp;&nbsp;
+          <router-link class="nav-item" to="/svioglasi"><i class="fa-solid fa-paw"></i>&nbsp;Izgubljeni ljubimci</router-link>&nbsp;&nbsp;&nbsp;
+          <router-link class="nav-item" to="/dodaj"><i class="fa-solid fa-paw"></i>&nbsp;Dodaj oglas</router-link>&nbsp;&nbsp;&nbsp;
+          <router-link class="nav-item" to="/mojnalog"><i class="fa-solid fa-user"></i>&nbsp;Moj nalog</router-link>&nbsp;&nbsp;&nbsp;
+          <router-link class="nav-item" to="/onama"><i class="fa-solid fa-paw"></i>&nbsp;O nama</router-link>&nbsp;&nbsp;&nbsp;
       </div>
     </div>
   </div>
@@ -24,6 +23,12 @@
 </template>
 
 <style lang="less">
+
+@media screen and (max-width: 768px) {
+  nav {
+    background-color:red;
+  }
+}
 
 #logoImg {
   width: 150px;
@@ -49,7 +54,16 @@ nav {
 </style>
 
 <script>
+
 export default {
-    name: 'NavbarComponent'
+    name: 'NavbarComponent',
+    components: {
+      
+    },
+    data() {
+      return {
+        
+      }
+    }
 }
 </script>

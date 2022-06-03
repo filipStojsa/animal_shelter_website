@@ -4,8 +4,10 @@
         <div class="row centriraj" >
             <div class="col-sm-12 centrirajKolonu">
                 <p class="breadcrumbs"> 
-                    Životinje&nbsp;<i class="fa-solid fa-arrow-right"></i>&nbsp;
-                    <router-link :to="'/zivotinje/' + vrsta" >{{this.$route.params.vrsta}}</router-link>
+                    <router-link to="/zivotinje">Životinje</router-link>
+                    &nbsp;<i class="fa-solid fa-arrow-right"></i>&nbsp;
+                    <!-- <router-link :to="'/zivotinje/' + vrsta" >{{this.$route.params.vrsta}}</router-link> -->
+                    {{this.$route.params.vrsta}}
                 </p>
             </div>
             <div class="col-sm-12">

@@ -3,7 +3,7 @@
       <h2>Dodaj oglas</h2>
       <hr>
       <p>
-          Postavite oglas za ljubimcem kao: <i>{{loged}}</i>
+          Postavite oglas za ljubimcem kao korisnik: <i>{{loged}}</i>
       </p>
       <div id="div-table">
 
@@ -11,19 +11,19 @@
               <div id="table-div">
                 <table>
                 <tr>
-                    <td>Ime ljubimca:</td>
+                    <td>Ime ljubimca&nbsp;</td>
                     <td>
                         <input class="form-control" type="text" v-model="ime" required>
                     </td>
                 </tr>
                 <tr>
-                    <td>Opis:</td>
+                    <td>Opis&nbsp;</td>
                     <td>
                         <textarea class="form-control" name="opis" id="" cols="23" rows="3" v-model="opis" required></textarea>
                     </td>
                 </tr>
                 <tr>
-                    <td>Kontakt telefon:</td>
+                    <td>Kontakt telefon&nbsp;</td>
                     <td>
                         <input class="form-control" type="text" v-model="tel" placeholder="+381 6x xxx xxxx" required>
                     </td>
@@ -61,11 +61,12 @@
 }
 
 #table-div {
-    background-color: #E29578;
+    background-color: #f9c1ac;
     box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
     border-radius: 10px;
     padding: 20px;
     margin-bottom: 15px;
+    border: 2px solid #aa867a;
 }
 
 .btn-outline-primary {
@@ -81,8 +82,13 @@
 
 }
 
+input {
+    border: 2px solid #aa867a;
+}
+
 textarea {
     resize: none;
+    border: 2px solid #aa867a;
 }
 
 td {
@@ -96,10 +102,14 @@ td {
     background-color: #FFDDD2;
     border-radius: 10px;
     box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+    text-align: center;
+    justify-content: center;
+    width: 30%;
+    /* border: 2px solid #aa867a; */
   }
 
 .add p {
-    text-align: left;
+    text-align: center;
     font-size: 22px;
   }
 
@@ -110,6 +120,7 @@ td {
 </style>
 
 <script>
+
 export default {
     name: 'DodajOglas',
     data() {
@@ -125,8 +136,15 @@ export default {
         }
     },
     created() {
-        // TODO: handle anonymous users
-        this.loged = localStorage.getItem('loged')
+        document.title = 'Azil Aska - Dodaj oglas'
+        this.loged = localStorage.getItem('logged')
+        if (this.loged == null) {
+            // this.loged = 'teo'
+            this.$router.push('/mojnalog')
+        }
+        else {
+            this.loged = JSON.parse(this.loged).username
+        }
         this.sviOglasi = JSON.parse(localStorage.getItem('oglasi'))
     },
     methods: {
@@ -135,6 +153,7 @@ export default {
                 this.error = 'Loš je format telefona!'
                 return
             }
+            this.error = 'Oglas je uspešno dodat!'
             
             let date = new Date()
             let today = date.getFullYear() + '-' + (date.getMonth()+1) + '-' + date.getDate();
