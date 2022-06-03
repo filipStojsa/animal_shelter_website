@@ -1,9 +1,13 @@
 <template>
   <div class="add">
-      <h2>Dodaj oglas</h2>
+      <h2 v-if="jezik == 0">Dodaj oglas</h2>
+      <h2 v-if="jezik == 1">New ad</h2>
       <hr>
-      <p>
+      <p v-if="jezik == 0">
           Postavite oglas za ljubimcem kao korisnik: <i>{{loged}}</i>
+      </p>
+      <p v-else>
+          Post an ad for your lost pet as user: <i>{{loged}}</i>
       </p>
       <div id="div-table">
 
@@ -11,19 +15,22 @@
               <div id="table-div">
                 <table>
                 <tr>
-                    <td>Ime ljubimca&nbsp;</td>
+                    <td v-if="jezik == 0">Ime ljubimca&nbsp;</td>
+                    <td v-else>Pet name&nbsp;</td>
                     <td>
                         <input class="form-control" type="text" v-model="ime" required>
                     </td>
                 </tr>
                 <tr>
-                    <td>Opis&nbsp;</td>
+                    <td v-if="jezik == 0">Opis&nbsp;</td>
+                    <td v-else>Description&nbsp;</td>
                     <td>
                         <textarea class="form-control" name="opis" id="" cols="23" rows="3" v-model="opis" required></textarea>
                     </td>
                 </tr>
                 <tr>
-                    <td>Kontakt telefon&nbsp;</td>
+                    <td v-if="jezik == 0">Kontakt telefon&nbsp;</td>
+                    <td v-else>Phone number&nbsp;</td>
                     <td>
                         <input class="form-control" type="text" v-model="tel" placeholder="+381 6x xxx xxxx" required>
                     </td>
@@ -40,9 +47,13 @@
                 </table>
               </div>
 
-                <button class="btn btn-outline-primary" @click="dodajOglas()">
+                <button v-if="jezik == 0" class="btn btn-outline-primary" @click="dodajOglas()">
                     <i class="fa-solid fa-plus"></i>
                     Dodaj oglas
+                </button>
+                <button v-else class="btn btn-outline-primary" @click="dodajOglas()">
+                    <i class="fa-solid fa-plus"></i>
+                   Add
                 </button>
 
           </form>
@@ -132,11 +143,13 @@ export default {
             opis: '',
             tel: '',
 
-            error: ''
+            error: '',
+
+            'jezik': 1
         }
     },
     created() {
-        document.title = 'Azil Aska - Dodaj oglas'
+        document.title = this.jezik == 0 ? 'Azil Aska - Dodaj oglas' : 'Azil Aska - Add an ad'
         this.loged = localStorage.getItem('logged')
         if (this.loged == null) {
             // this.loged = 'teo'
@@ -150,10 +163,10 @@ export default {
     methods: {
         dodajOglas() {
             if(/^\+381 6\d \d{3} \d{3,4}$/.test(this.tel) == false) {
-                this.error = 'Loš je format telefona!'
+                this.error = this.jezik == 0 ? 'Loš je format telefona!' : 'Bad phone format!'
                 return
             }
-            this.error = 'Oglas je uspešno dodat!'
+            this.error = this.jezik == 0 ? 'Oglas je uspešno dodat!' : 'Succesfully added!'
             
             let date = new Date()
             let today = date.getFullYear() + '-' + (date.getMonth()+1) + '-' + date.getDate();
