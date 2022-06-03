@@ -8,6 +8,8 @@ import ZivotinjaView from '../views/zivotinje/ZivotinjaView.vue'
 
 // oglas
 import DodajOglasView from '../views/DodajOglasView.vue'
+import SviOglasiView from '../views/SviOglasiView.vue'
+
 
 const routes = [
   {
@@ -34,6 +36,11 @@ const routes = [
     path: '/dodaj',
     name: 'dodaj',
     component: DodajOglasView
+  },
+  {
+    path: '/svioglasi',
+    name: 'svioglasi',
+    component: SviOglasiView
   },
 ]
 

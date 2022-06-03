@@ -1,7 +1,7 @@
 <template>
   <div class="add">
       <h2>Dodaj oglas</h2>
-      <br>
+      <hr>
       <p>
           Postavite oglas za ljubimcem kao: <i>{{loged}}</i>
       </p>
@@ -13,19 +13,19 @@
                 <tr>
                     <td>Ime ljubimca:</td>
                     <td>
-                        <input type="text" v-model="ime" required>
+                        <input class="form-control" type="text" v-model="ime" required>
                     </td>
                 </tr>
                 <tr>
                     <td>Opis:</td>
                     <td>
-                        <textarea name="opis" id="" cols="23" rows="3" v-model="opis" required></textarea>
+                        <textarea class="form-control" name="opis" id="" cols="23" rows="3" v-model="opis" required></textarea>
                     </td>
                 </tr>
                 <tr>
                     <td>Kontakt telefon:</td>
                     <td>
-                        <input type="text" v-model="tel" placeholder="+381 6x xxx xxxx" required>
+                        <input class="form-control" type="text" v-model="tel" placeholder="+381 6x xxx xxxx" required>
                     </td>
                 </tr>
 
@@ -52,6 +52,8 @@
 </template>
 
 <style scoped>
+
+
 #error-div {
     background-color: #f8d7da;
     border-radius: 5px;
@@ -62,7 +64,7 @@
     background-color: #E29578;
     box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
     border-radius: 10px;
-    padding: 10px;
+    padding: 20px;
     margin-bottom: 15px;
 }
 

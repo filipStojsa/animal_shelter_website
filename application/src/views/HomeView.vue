@@ -1,5 +1,30 @@
 <template>
   <div class="home row">
+    <h2>
+      <i class="fa-solid fa-rectangle-ad"></i>
+      <strong> Ovo su najnoviji oglasi na našem saju, pogledaj ih!</strong>
+    </h2>
+
+    <!-- fresh adds -->
+
+    <div class="col-lg-4 col-sm-12">
+      <div class="fresh-ad" id="fresh-ad-1">
+      </div>
+    </div>
+
+    <div class="col-lg-4 col-sm-12">
+      <div class="fresh-ad" id="fresh-ad-2">
+      </div>
+    </div>
+
+    <div class="col-lg-4 col-sm-12">
+      <div class="fresh-ad" id="fresh-ad-3">
+      </div>
+    </div>
+
+  </div>
+
+  <div class="home row">
       <h2>
         <i class="fa-solid fa-bone"></i>
         <strong>
@@ -63,6 +88,14 @@
 </template>
 
 <style scoped>
+  .fresh-ad {
+    background-color: #83C5BE;
+    border-radius: 7px;
+    padding: 10px;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+    margin-bottom: 10px;
+  }
+
   .btn-router {
     text-decoration: none;
     color: #006D77;
@@ -131,6 +164,7 @@ export default {
   components: {
     
   },
+
   data() {
     return {
       sviOglasi: oglasi
@@ -138,14 +172,47 @@ export default {
   },
 
   created() {
+
+    
     if(localStorage.getItem('oglasi') == null) {
       localStorage.setItem('oglasi', JSON.stringify(this.sviOglasi))
     }
     else {
       this.sviOglasi = JSON.parse(localStorage.getItem('oglasi'))
+      if(this.sviOglasi[0].ime == "") {
+        this.sviOglasi.shift()
+      }
     }
     localStorage.setItem('korisnici', JSON.stringify(korisnici))
     localStorage.setItem("loged", korisnici[1].username)
+
+
+  },
+
+  mounted() {
+    
+    let num = 0
+    let i = this.sviOglasi.length
+
+    while(num < 3 && i > 0) {
+      let oglas = this.sviOglasi[i - 1]
+
+      let tmp = "<h4>Oglas: <i>" 
+        + oglas.ime 
+        + "</i></h4>"
+        + "<hr>"
+        + "<i>" + oglas.opis + "</i>"
+        + "<br><br>"
+        + "<i class='fa-solid fa-phone'></i> "
+        + "<a href='tel:" + oglas.tel + "'>" + oglas.tel + "</a>"
+      
+      let n = num+1
+      document.getElementById("fresh-ad-" + n).innerHTML = tmp
+
+      num++
+      i--
+    }
   }
+
 }
 </script>

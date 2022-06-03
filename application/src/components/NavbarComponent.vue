@@ -12,7 +12,7 @@
       <div class="navbar-nav">
           <router-link class="nav-item" to="/">Početna stranica</router-link>&nbsp;&nbsp;&nbsp;
           <router-link class="nav-item" to="/zivotinje">Zivotinje</router-link>&nbsp;&nbsp;&nbsp;
-          <router-link class="nav-item" to="/izgubljeni">Izgubljeni ljubimci</router-link>&nbsp;&nbsp;&nbsp;
+          <router-link class="nav-item" to="/svioglasi">Izgubljeni ljubimci</router-link>&nbsp;&nbsp;&nbsp;
           <router-link class="nav-item" to="/dodaj">Dodaj oglas</router-link>&nbsp;&nbsp;&nbsp;
           <router-link class="nav-item" to="/nalog">Moj nalog</router-link>&nbsp;&nbsp;&nbsp;
           <router-link class="nav-item" to="/o_nama">O nama</router-link>&nbsp;&nbsp;&nbsp;
