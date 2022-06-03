@@ -9,6 +9,9 @@ import ZivotinjaView from '../views/zivotinje/ZivotinjaView.vue'
 import ONamaView from '../views/ONamaView.vue'
 import MojNalogView from '../views/MojNalogView.vue'
 
+import DodajOglasView from '../views/DodajOglasView.vue'
+import SviOglasiView from '../views/SviOglasiView.vue'
+
 const routes = [
   {
     path: '/',
@@ -39,6 +42,16 @@ const routes = [
     path: '/mojnalog',
     name: 'mojnalog',
     component: MojNalogView
+  },
+  {
+    path: '/dodaj',
+    name: 'dodaj',
+    component: DodajOglasView
+  },
+  {
+    path: '/svioglasi',
+    name: 'svioglasi',
+    component: SviOglasiView
   },
 ]
 
