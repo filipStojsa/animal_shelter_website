@@ -1,5 +1,5 @@
 <template>
-<div>
+<div class="container">
   <div class="home row">
     <div class="col-sm-12" style="padding-bottom: 20px">
       <h2>

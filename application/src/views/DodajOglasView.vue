@@ -1,4 +1,5 @@
 <template>
+<div class="container">
   <div class="add">
       <h2 v-if="jezik == 0">Dodaj oglas</h2>
       <h2 v-if="jezik == 1">New ad</h2>
@@ -60,6 +61,7 @@
 
       </div>
   </div>
+</div>
 </template>
 
 <style scoped>
@@ -114,8 +116,7 @@ td {
     border-radius: 10px;
     box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
     text-align: center;
-    justify-content: center;
-    width: 30%;
+
     /* border: 2px solid #aa867a; */
   }
 

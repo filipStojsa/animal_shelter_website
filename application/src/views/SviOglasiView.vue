@@ -1,4 +1,5 @@
 <template>
+<div class="container">
     <div class="home">
         <h3>
             <i class="fa-solid fa-rectangle-ad"></i>
@@ -12,7 +13,7 @@
         </p>
         <div class="row">
 
-            <div class="col-lg-4 col-sm-12" v-for="oglas in sviOglasi" :key="oglas.ime">
+            <div class="col-lg-4 col-sm-12" v-for="(oglas, index) in sviOglasi" :key="oglas.ime">
                 <div class="oglas-div">
                     <h4><strong>{{oglas.ime}}</strong></h4>
                     <hr>
@@ -29,9 +30,9 @@
                         <i>{{kom.tekst}}</i>
                     </p>
                     <div class="input-group mb-3">
-                        <input type="text" class="form-control" placeholder="Unesi komentar" v-model="comment">
+                        <input type="text" name="" class="form-control" placeholder="Unesi komentar" v-model="comment[index]">
                         <div class="input-group-append">
-                            <button class="btn btn-outline-primary" type="button" @click="addComment(oglas)">Dodaj</button>
+                            <button class="btn btn-outline-primary" type="button" @click="addComment(oglas, index)">Dodaj</button>
                         </div>
                     </div>
                 </div>
@@ -39,6 +40,7 @@
 
         </div>
     </div>
+</div>
 </template>
 
 <style scoped>
@@ -97,7 +99,7 @@ export default {
     data() {
         return {
             sviOglasi: oglasi,
-            comment: ''
+            comment: []
         }
     },
 
@@ -117,7 +119,7 @@ export default {
     },
 
     methods: {
-        addComment(oglas) {
+        addComment(oglas, i) {
             var user = localStorage.getItem('logged')
             if (user == null) {
                 alert('Da biste ostavili komentar morate se najpre ulogovati!')
@@ -126,7 +128,7 @@ export default {
             user = JSON.parse(user)
             let com = {
                 username: user.username,
-                tekst: this.comment
+                tekst: this.comment[i]
             }
             this.sviOglasi.find(o => o.ime == oglas.ime).komentari.push(com)
             localStorage.setItem('oglasi', JSON.stringify(this.sviOglasi))

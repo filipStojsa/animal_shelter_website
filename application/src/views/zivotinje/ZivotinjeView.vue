@@ -1,5 +1,5 @@
 <template>
-<div>
+<div class="container">
     <div class="centriraj">
         <h5 style="color: #E29578;margin-top: 20px"><i class="fa-solid fa-circle-exclamation"></i>&nbsp;Možete pregledati svaku vrstu posebno, ili direktno pristupiti stranicama sa našim životinjama.</h5>
         <div v-for="vrsta in ziv" :key='vrsta.vrsta'>
