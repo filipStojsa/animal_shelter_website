@@ -23,6 +23,11 @@ body {
   color: #2c3e50;
 }
 
+BannerComponent {
+    position: absolute;
+    bottom: 5px;
+}
+
 </style>
 
 <script>

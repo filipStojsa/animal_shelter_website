@@ -1,5 +1,5 @@
 <template>
-    <div class="">
+    <div class="" style="min-height:650px">
         <div class="row breadcrumbs">
             <div class="col-sm-12">
                 <router-link to="/zivotinje">Životinje</router-link>

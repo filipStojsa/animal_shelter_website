@@ -1,5 +1,5 @@
 <template>
-    <div style="padding:35px">
+    <div style="padding:35px;min-height:550px">
         <router-view :key="this.$route.path">
         <div class="row centriraj" >
             <div class="col-sm-12 centrirajKolonu">

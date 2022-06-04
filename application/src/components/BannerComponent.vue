@@ -1,5 +1,5 @@
 <template>
-    <div style="padding: 20px 20px 30px 50px">
+    <div style="padding: 20px 20px 30px 50px;">
         <div class="row">
             <div v-for="r in this.reklame" :key="r.naslov" class="col-sm-4 col-lg-2">
                 <div class="rekl">
