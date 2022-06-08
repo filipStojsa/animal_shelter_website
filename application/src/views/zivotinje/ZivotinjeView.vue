@@ -1,7 +1,8 @@
 <template>
 <div class="container">
     <div class="centriraj">
-        <h5 style="color: #E29578;margin-top: 20px"><i class="fa-solid fa-circle-exclamation"></i>&nbsp;Možete pregledati svaku vrstu posebno, ili direktno pristupiti stranicama sa našim životinjama.</h5>
+        <h5 v-if='jezik == 0' style="color: #E29578;margin-top: 20px"><i class="fa-solid fa-circle-exclamation"></i>&nbsp;Možete pregledati svaku vrstu posebno, ili direktno pristupiti stranicama sa našim životinjama.</h5>
+        <h5 v-else style="color: #E29578;margin-top: 20px"><i class="fa-solid fa-circle-exclamation"></i>&nbsp;You can view each species separately, or access the pages with our animals directly.</h5>
         <div v-for="vrsta in ziv" :key='vrsta.vrsta'>
             
             <div class="row centriraj">
@@ -54,8 +55,18 @@ export default {
     name: 'ZivotinjeView',
     data() {
         return {
-            ziv: zivotinje
+            ziv: zivotinje,
+            jezik: 0
         }
+    },
+    created() {
+        this.jezik = localStorage.getItem('jezik')
+        if (this.jezik == null) {
+            this.jezik = 0
+            localStorage.setItem('jezik', 0)
+        }
+        else this.jezik = parseInt(this.jezik)
+        document.title = this.jezik == 0 ? 'Azil Aska - Zivotinje' : 'Azil Aska - Animals'
     }
 }
 </script>

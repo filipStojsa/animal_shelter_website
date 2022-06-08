@@ -146,10 +146,17 @@ export default {
 
             error: '',
 
-            'jezik': 1
+            jezik: 0
         }
     },
     created() {
+        this.jezik = localStorage.getItem('jezik')
+        if (this.jezik == null) {
+            this.jezik = 0
+            localStorage.setItem('jezik', 0)
+        }
+        else this.jezik = parseInt(this.jezik)
+
         document.title = this.jezik == 0 ? 'Azil Aska - Dodaj oglas' : 'Azil Aska - Add an ad'
         this.loged = localStorage.getItem('logged')
         if (this.loged == null) {

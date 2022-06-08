@@ -4,7 +4,8 @@
         <div class="row centriraj" >
             <div class="col-sm-12 centrirajKolonu">
                 <p class="breadcrumbs"> 
-                    <router-link to="/zivotinje">Životinje</router-link>
+                    <router-link v-if='jezik==0' to="/zivotinje">Životinje</router-link>
+                    <router-link v-else to="/zivotinje">Animals</router-link>
                     &nbsp;<i class="fa-solid fa-arrow-right"></i>&nbsp;
                     <!-- <router-link :to="'/zivotinje/' + vrsta" >{{this.$route.params.vrsta}}</router-link> -->
                     {{this.$route.params.vrsta}}
@@ -15,7 +16,7 @@
                     <div class="col-sm-12 col-md-3 levo">
                         <h1 class="naslov"><i class="fa-solid fa-feather-pointed"></i>&nbsp;{{ vrsta }}</h1>
                     </div>
-                    <div class="col-sm-12 col-md-9 desno">
+                    <div v-if='jezik == 0' class="col-sm-12 col-md-9 desno">
                         <div id="forma">
                             <i class="fa-solid fa-filter"></i>&nbsp;
                             <select class="sortKriterijum" v-model="sortirajPo">
@@ -45,6 +46,39 @@
                             <button class="btn sortDugme" @click="pretraga()">
                                 <i class="fa-solid fa-magnifying-glass"></i>
                                 &nbsp;Pretraži
+                            </button>
+                        </div>
+                    </div>
+                     <div v-else class="col-sm-12 col-md-9 desno">
+                        <div id="forma">
+                            <i class="fa-solid fa-filter"></i>&nbsp;
+                            <select class="sortKriterijum" v-model="sortirajPo">
+                                <option value="1">
+                                     Name
+                                </option>
+                                <option value="0">
+                                     Age
+                                </option>
+                            </select> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                            <select class="sortKriterijum" v-model="sortKriterijum">
+                                <option value="1">
+                                     Ascending
+                                </option>
+                                <option value="-1">
+                                    Descending
+                                </option>
+                            </select> &nbsp;
+                            <button class="btn sortDugme" @click="sortiraj()">
+                                <i v-if="sortKriterijum == 1" class="fa-solid fa-arrow-up"></i>
+                                <i v-else class="fa-solid fa-arrow-down"></i>
+                                &nbsp;Sort
+                            </button>
+                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                            <input class="pretraga" type="text" v-model="kljuc">
+                            &nbsp;
+                            <button class="btn sortDugme" @click="pretraga()">
+                                <i class="fa-solid fa-magnifying-glass"></i>
+                                &nbsp;Search
                             </button>
                         </div>
                     </div>
@@ -141,6 +175,7 @@ export default {
             sortKriterijum: 1,
             sortirajPo: 0,
             kljuc: "",
+            jezik: 0,
         }
     },
 
@@ -194,7 +229,8 @@ export default {
             if (this.sortirajPo == 0) {
                 // po starosti
                 if (/[0-9]+/.test(this.kljuc) == false) {
-                    alert('Greška: Starost je uneta u pogrešnom formatu!')
+                    if (this.jezik == 0) alert('Greška: Starost je uneta u pogrešnom formatu!')
+                    else alert('Error: Wrong age format!')
                     return
                 }
                 this.zivotinje = []
@@ -214,7 +250,14 @@ export default {
             var zivotinjeJSON = zivotinje.find(z => z.vrsta == this.vrsta)
             this.zivotinje = zivotinjeJSON.z
 
-            document.title = 'Azil Aska - ' + this.vrsta
+            this.jezik = localStorage.getItem('jezik')
+            if (this.jezik == null) {
+                this.jezik = 0
+                localStorage.setItem('jezik', 0)
+            }
+            else this.jezik = parseInt(this.jezik)
+
+            document.title = this.jezik == 0 ? 'Azil Aska - ' + this.vrsta : 'Azil Aska - ' + this.vrsta
         }
     },
 

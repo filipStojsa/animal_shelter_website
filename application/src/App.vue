@@ -4,7 +4,7 @@
   <div>
     <router-view/>
   </div>
-  <BannerComponent :reklame="reklame"></BannerComponent>
+  <BannerComponent :reklame="reklame[jezik]"></BannerComponent>
   </div>
 </template>
 
@@ -39,14 +39,23 @@ BannerComponent {
 
   export default {
     components: {
-    NavbarComponent,
-    BannerComponent,
-},
+        NavbarComponent,
+        BannerComponent,
+    },
     data() {
       return {
         zivotinje: zivotinje,
         reklame: reklame,
+        jezik: 0
       }
+    },
+    created() {
+      this.jezik = localStorage.getItem('jezik')
+        if (this.jezik == null) {
+            this.jezik = 0
+            localStorage.setItem('jezik', 0)
+        }
+        else this.jezik = parseInt(this.jezik)
     }
   }
 </script>

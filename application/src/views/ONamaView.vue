@@ -3,7 +3,8 @@
         <div class="row">
             <div class="col-sm-12 col-md-12 col-lg-6">
                 <div class="kolona">
-                    <h3>Ukoliko želite da stupite u kontakt sa nama</h3>
+                    <h3 v-if="jezik == 0">Ukoliko želite da stupite u kontakt sa nama</h3>
+                    <h3 v-else>If you want to get in touch with us</h3>
                     <hr>
                     <p class="paragraf">
                         <i class="fa-solid fa-phone" style="color:#62a373"></i>&nbsp;<a href="tel:+381 64 323-3232">+381 64 323-3232</a>
@@ -17,7 +18,7 @@
                 </div>
             </div>
             <div class="col-sm-12 col-md-12 col-lg-6">
-                <div class="kolona">
+                <div v-if='jezik == 0' class="kolona">
                     <h3 class="naslov">Zašto baš mi?</h3>
                     <hr>
                     <p class="paragraf">
@@ -26,6 +27,22 @@
                     </p>
                     <hr>
                     <h4 class="naslov"><i class="fa-solid fa-award"></i>&nbsp;Nagrade i dostignuća</h4>
+                    <hr>
+                    <div class="row">
+                        <div v-for="n in nagrade" class="col-sm-4" :key="n.naziv">
+                            <NagradaComponent :nagrada="n"></NagradaComponent>
+                        </div>
+                    </div>
+                </div>
+                <div v-else class="kolona">
+                    <h3 class="naslov">Why us?</h3>
+                    <hr>
+                    <p class="paragraf">
+                        <i class="fa-solid fa-check naslov"></i>&nbsp;Animals are our best friends. They keep us company, shower us with love and complete our family. Their presence is useful for children, because it develops responsibility and empathy in them. Research shows that caring for animals has the effect of lowering blood pressure, reducing stress and the risk of cardiovascular disease.
+                        <br><i class="fa-solid fa-check naslov"></i>&nbsp;In short - animals make us healthier and happier.
+                    </p>
+                    <hr>
+                    <h4 class="naslov"><i class="fa-solid fa-award"></i>&nbsp;Awards and achievements</h4>
                     <hr>
                     <div class="row">
                         <div v-for="n in nagrade" class="col-sm-4" :key="n.naziv">
@@ -90,14 +107,22 @@ export default {
     name: 'ONamaView',
     data() {
         return {
-            nagrade: nagrade
+            nagrade: nagrade,
+            jezik: 0
         }
     },
     components: {
         NagradaComponent,
     },
     created() {
-        document.title = 'Azil Aska - O nama'
+         this.jezik = localStorage.getItem('jezik')
+        if (this.jezik == null) {
+            this.jezik = 0
+            localStorage.setItem('jezik', 0)
+        }
+        else this.jezik = parseInt(this.jezik)
+
+        document.title = this.jezik == 0 ? 'Azil Aska - O nama' : 'Azil Aska - About us'
     }
 }
 </script>
