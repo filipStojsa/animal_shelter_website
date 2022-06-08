@@ -35,6 +35,10 @@
                             <button class="btn btn-outline-primary" type="button" @click="addComment(oglas, index)">Dodaj</button>
                         </div>
                     </div>
+                    <button class="btn btn-outline-primary" @click="printPDF(oglas)">
+                        <i class="fa-solid fa-file-lines"></i>
+                        Sačuvaj kao PDF
+                    </button>
                 </div>
             </div>
 
@@ -133,6 +137,21 @@ export default {
             this.sviOglasi.find(o => o.ime == oglas.ime).komentari.push(com)
             localStorage.setItem('oglasi', JSON.stringify(this.sviOglasi))
 
+        },
+
+        printPDF(oglas) {
+            var printWindow = window.open('', '', 'height=400,width=800');
+            printWindow.document.write('<html><head><title>Oglas</title>');
+            printWindow.document.write('</head><body >');
+            printWindow.document.write('<h1>' + oglas.ime + '</h1>');
+            printWindow.document.write('<hr>');
+            printWindow.document.write('<h3>' + 'Opis oglasa: ' + '</h3>');
+            printWindow.document.write(oglas.opis);
+            printWindow.document.write('<br>');
+            printWindow.document.write('<h4>' + 'Kontakt: ' + oglas.username + ', tel: ' + oglas.tel);
+            printWindow.document.write('</body></html>');
+            printWindow.document.close();
+            printWindow.print();
         }
     }
 }
