@@ -1,15 +1,24 @@
 <template>
 <div class="container">
     <div class="home">
-        <h3>
+        <h3 v-if="jezik == 0">
             <i class="fa-solid fa-rectangle-ad"></i>
             Ovo su svi oglasi za izgubljenim ljubimcima
         </h3>
+        <h3 v-else>
+            <i class="fa-solid fa-rectangle-ad"></i>
+            These are all ads for lost animals
+        </h3>
         <hr>
-        <p>
-            Pomozi njihovim neutešnim vlasnicima tako što ćeš ih. <br>
+        <p v-if="jezik == 0">
+            Pomozi njihovim neutešnim vlasnicima tako što ćeš ih potražiti. <br>
             Ukoliko ih nađeš ili imaš neki trag o njihovim ljubimcima, pozovi
             ih ili ostavi komentar na njihov oglas!
+        </p>
+        <p v-else>
+            Help their inconsolable owners by searching for them. <br>
+            If you find them or have a clue about their pets, call
+            them or leave a comment on their ad!
         </p>
         <div class="row">
 
@@ -23,7 +32,8 @@
                     <i class="fa-solid fa-phone"></i> <a href="tel:{{oglas.tel}}">{{oglas.tel}}</a>
 
                     <hr>
-                    <h5><strong>Komentari:</strong></h5>
+                    <h5 v-if="jezik == 0"><strong>Komentari:</strong></h5>
+                    <h5 v-else><strong>Comments:</strong></h5>
                     <p class="comments" v-for="kom in oglas.komentari" :key="kom.username">
                         <i class="fa-regular fa-comment-dots"></i> 
                         {{kom.username}} : 
@@ -32,12 +42,17 @@
                     <div class="input-group mb-3">
                         <input type="text" name="" class="form-control" placeholder="Unesi komentar" v-model="comment[index]">
                         <div class="input-group-append">
-                            <button class="btn btn-outline-primary" type="button" @click="addComment(oglas, index)">Dodaj</button>
+                            <button v-if="jezik == 0" class="btn btn-outline-primary" type="button" @click="addComment(oglas, index)">Dodaj</button>
+                            <button v-else class="btn btn-outline-primary" type="button" @click="addComment(oglas, index)">Add</button>
                         </div>
                     </div>
-                    <button class="btn btn-outline-primary" @click="printPDF(oglas)">
+                    <button v-if="jezik == 0" class="btn btn-outline-primary" @click="printPDF(oglas)">
                         <i class="fa-solid fa-file-lines"></i>
                         Sačuvaj kao PDF
+                    </button>
+                    <button v-else class="btn btn-outline-primary" @click="printPDF(oglas)">
+                        <i class="fa-solid fa-file-lines"></i>
+                        Save as PDF
                     </button>
                 </div>
             </div>
@@ -103,7 +118,8 @@ export default {
     data() {
         return {
             sviOglasi: oglasi,
-            comment: []
+            comment: [],
+            jezik: 0
         }
     },
 
@@ -120,6 +136,13 @@ export default {
                 }
             }
         }
+
+        this.jezik = localStorage.getItem('jezik')
+        if (this.jezik == null) {
+            this.jezik = 0
+            localStorage.setItem('jezik', 0)
+        }
+        else this.jezik = parseInt(this.jezik)
     },
 
     methods: {

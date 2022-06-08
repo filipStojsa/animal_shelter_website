@@ -4,7 +4,8 @@
     <div class="col-sm-12" style="padding-bottom: 20px">
       <h2>
         <i class="fa-solid fa-rectangle-ad"></i>
-        <strong> Ovo su najnoviji oglasi na našem saju, pogledaj ih!</strong>
+        <strong v-if="jezik == 0"> Ovo su najnoviji oglasi na našem saju, pogledaj ih!</strong>
+        <strong v-else> These are the latest ads on our site, check them out!</strong>
       </h2>
     </div>
 
@@ -30,23 +31,34 @@
   <div class="home row">
       <h2>
         <i class="fa-solid fa-bone"></i>
-        <strong>
+        <strong v-if="jezik == 0">
           Učini pametnu stvar i udomi neku kucu, macu ili ptičicu!
+        </strong>
+        <strong v-else>
+          Do a smart thing and adopt a house, a cat or a bird!
         </strong>
       </h2>
       <br><br>
       <div class="col-lg-6 col-sm-12">
-        <p>
+        <p v-if="jezik == 0">
           Mi u Azilu Aska samo želimo da udomimo svaku životinju. Naš jedini cilj je da one budu srećne! <br><br>
           Pogledaj životinje koje smo spasili i možda si baš ti onaj koga su čekale sve ovo vreme ili
           možda žeilš da pomogneš nekome ko traži svog ljubimca...
+        </p>
+        <p v-else>
+          We at Aska Asylum just want to adopt every animal. Our only goal is to make them happy! <br> <br>
+          Look at the animals we saved and maybe you're the one they've been waiting for all this time or
+          maybe you want to help someone who is looking for their pet ...
         </p>
 
         <!-- <button class="btn btn-outline-primary">
           <router-link class="btn-router" to="/zivotinje">Zivotinje</router-link>
         </button> &nbsp;&nbsp;&nbsp; -->
-        <button class="btn btn-outline-primary">
+        <button v-if="jezik == 0" class="btn btn-outline-primary">
           <router-link class="btn-router" to="/svioglasi">Izgubljeni ljubimci</router-link>
+        </button>
+        <button v-else class="btn btn-outline-primary">
+          <router-link class="btn-router" to="/svioglasi">Lost pets</router-link>
         </button>
       
       </div>
@@ -60,28 +72,41 @@
   <div class="home row">
       <h2>
         <i class="fa-solid fa-paw"></i> 
-        <strong> Možda bi da objaviš oglas ili pogledaš naše kritike</strong>
+        <strong  v-if="jezik == 0"> Možda bi da objaviš oglas ili pogledaš naše kritike</strong>
+        <strong  v-else> Maybe you would like to post an ad or look at our reviews</strong>
       </h2>
       <br><br>
       <div class="col-lg-6">
         <img id="cat-index-img" src="/images/cat.png" alt="">
       </div>
       <div class="col-lg-6 col-sm-12"  id="cat-index-txt">
-        <p>
+        <p v-if="jezik == 0">
           A šta ako si izgubio svog krznatog ili pernatog prijatelja? Ne očajavaj, na našem sajtu možeš
           da objaviš oglas o potrazi, a naši članovi će te obavestiti ukoliko naiđu na neki trag!
           <br><br>
           I dalje nisi ubeđen da smo mi pravi azil? Pogledaj neke od naših pohvala i nagrada!
         </p>
+        <p v-else>
+          And what if you lost your furry or feathered friend? Don't despair, you can on our site
+          to post a search ad, and our members will let you know if they come across a clue!
+          <br> <br>
+          Still not convinced that we are a real asylum? Check out some of our compliments and awards!
+        </p>
 
-        <button class="btn btn-outline-primary">
+        <button v-if="jezik == 0" class="btn btn-outline-primary">
           <router-link class="btn-router" to="/dodaj">Dodaj oglas</router-link>
         </button> 
+        <button v-else class="btn btn-outline-primary">
+          <router-link class="btn-router" to="/dodaj">Add an ad</router-link>
+        </button>
 
         &nbsp;&nbsp;&nbsp;
 
-        <button class="btn btn-outline-primary">
+        <button v-if="jezik == 0" class="btn btn-outline-primary">
           <router-link class="btn-router" to="/onama">O nama</router-link>
+        </button>
+        <button v-else class="btn btn-outline-primary">
+          <router-link class="btn-router" to="/onama">About us</router-link>
         </button>
       
       </div>
@@ -171,7 +196,8 @@ export default {
 
   data() {
     return {
-      sviOglasi: oglasi
+      sviOglasi: oglasi,
+      jezik: 0
     }
   },
 
@@ -192,6 +218,12 @@ export default {
     localStorage.setItem('korisnici', JSON.stringify(korisnici))
     localStorage.setItem("loged", korisnici[1].username)
 
+    this.jezik = localStorage.getItem('jezik')
+    if (this.jezik == null) {
+        this.jezik = 0
+        localStorage.setItem('jezik', 0)
+    }
+    else this.jezik = parseInt(this.jezik)
 
   },
 
@@ -203,7 +235,7 @@ export default {
     while(num < 3 && i > 0) {
       let oglas = this.sviOglasi[i - 1]
 
-      let tmp = "<h4>Oglas: <i>" 
+      let tmp = "<h4><i>" 
         + oglas.ime 
         + "</i></h4>"
         + "<hr>"

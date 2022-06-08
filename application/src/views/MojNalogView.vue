@@ -3,7 +3,8 @@
         <div class="row" id="mojNalog" ref="mojNalog">
             <div class="col-sm-12 col-md-12 col-lg-8">
                 <div class="kolona">
-                    <h2 class="naslov"><i class="fa-solid fa-pen"></i>&nbsp;Moji oglasi</h2>
+                    <h2 v-if="jezik == 0" class="naslov"><i class="fa-solid fa-pen"></i>&nbsp;Moji oglasi</h2>
+                    <h2 v-else class="naslov"><i class="fa-solid fa-pen"></i>&nbsp;My ads</h2>
                     <hr>
                     <div class="row">
                         <div v-for="oglas in this.oglasi" :key="oglas.ime" class="col-sm-12 col-md-6 oglas">
@@ -16,7 +17,8 @@
             </div>
             <div class="col-sm-12 col-md-12 col-lg-4">
                 <div class="kolona">
-                    <h2 class="naslov"><i class="fa-solid fa-comments"></i>&nbsp;Moji komentari</h2>
+                    <h2 v-if="jezik == 0" class="naslov"><i class="fa-solid fa-comments"></i>&nbsp;Moji komentari</h2>
+                    <h2 v-else class="naslov"><i class="fa-solid fa-comments"></i>&nbsp;My comments</h2>
                     <hr>
                     <div class="row">
                         <div class="col-sm-12">
@@ -35,7 +37,18 @@
         </div>
         <div class="row" id="login" ref="login">
             <div class="col-sm-4">
-                <div class="kolona">
+                <div class="kolona" v-if="jezik == 0">
+                    <h2><i class="fa-solid fa-user"></i>&nbsp;Login</h2>
+                    <hr>
+                    <h5>Korisničko ime</h5>
+                    <input type="text" v-model="username">
+                    <br><br>
+                    <h5>Lozinka</h5>
+                    <input type="password" v-model="password">
+                    <hr>
+                    <button class="btn btn-secondary" @click="ulogujMe()"><i class="fa-solid fa-arrow-right-to-bracket"></i>&nbsp;Uloguj me</button>
+                </div>
+                <div class="kolona" v-else>
                     <h2><i class="fa-solid fa-user"></i>&nbsp;Login</h2>
                     <hr>
                     <h5>Username</h5>
@@ -44,7 +57,7 @@
                     <h5>Password</h5>
                     <input type="password" v-model="password">
                     <hr>
-                    <button class="btn btn-secondary" @click="ulogujMe()"><i class="fa-solid fa-arrow-right-to-bracket"></i>&nbsp;Uloguj me</button>
+                    <button class="btn btn-secondary" @click="ulogujMe()"><i class="fa-solid fa-arrow-right-to-bracket"></i>&nbsp;Login</button>
                 </div>
             </div>
         </div>
@@ -122,7 +135,8 @@ export default {
             password: '',
             oglasi: [],
             inicijalniOglasi: inicijalniOglasi,
-            mojiKomentari: []
+            mojiKomentari: [],
+            jezik: 0
         }
     },
     methods: {
@@ -204,6 +218,13 @@ export default {
         document.title = 'Azil Aska - Moj nalog'
 
         // this.loadData()
+
+        this.jezik = localStorage.getItem('jezik')
+        if (this.jezik == null) {
+            this.jezik = 0
+            localStorage.setItem('jezik', 0)
+        }
+        else this.jezik = parseInt(this.jezik)
     },
     mounted() {
         this.loadData()
