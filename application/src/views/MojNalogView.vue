@@ -200,7 +200,7 @@ export default {
                 this.loadData()
                 this.initData()
             }
-            else alert('Greška: Pogrešni kredencijali!')
+            else alert(this.jezik == 0 ? 'Greška: Pogrešni kredencijali!' : 'Error: Wrong initials')
         },
         obrisiOglas(oglas) {
             var index = -1
@@ -215,7 +215,7 @@ export default {
         }
     },
     created() {
-        document.title = 'Azil Aska - Moj nalog'
+        
 
         // this.loadData()
 
@@ -225,6 +225,8 @@ export default {
             localStorage.setItem('jezik', 0)
         }
         else this.jezik = parseInt(this.jezik)
+
+        document.title = this.jezik == 0 ? 'Azil Aska - Moj nalog' : 'Azil Aska - My account'
     },
     mounted() {
         this.loadData()

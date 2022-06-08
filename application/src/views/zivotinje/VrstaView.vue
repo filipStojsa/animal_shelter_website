@@ -8,13 +8,14 @@
                     <router-link v-else to="/zivotinje">Animals</router-link>
                     &nbsp;<i class="fa-solid fa-arrow-right"></i>&nbsp;
                     <!-- <router-link :to="'/zivotinje/' + vrsta" >{{this.$route.params.vrsta}}</router-link> -->
-                    {{this.$route.params.vrsta}}
+                    <!-- {{this.$route.params.vrsta}} -->
+                    {{ this.pravaVrsta }}
                 </p>
             </div>
             <div class="col-sm-12">
                 <div class="row naslovnaTraka">
                     <div class="col-sm-12 col-md-3 levo">
-                        <h1 class="naslov"><i class="fa-solid fa-feather-pointed"></i>&nbsp;{{ vrsta }}</h1>
+                        <h1 class="naslov"><i class="fa-solid fa-feather-pointed"></i>&nbsp;{{ pravaVrsta }}</h1>
                     </div>
                     <div v-if='jezik == 0' class="col-sm-12 col-md-9 desno">
                         <div id="forma">
@@ -96,7 +97,7 @@
         <hr>
         <div class="row" id="sveZivotinje">
             <div v-for="z in zivotinje" class="col-sm-12 col-md-6 col-lg-4 zivotinja"  :key="z.id">
-                <ZivotinjaComponent :zivotinja="z" :vrsta="vrsta"></ZivotinjaComponent>
+                <ZivotinjaComponent :zivotinja="z" :vrsta="vrsta" :jezik="jezik"></ZivotinjaComponent>
             </div>
         </div>
         
@@ -181,7 +182,7 @@ export default {
 
     methods: {
         sortiraj() {
-            var zivotinjeJSON = zivotinje.find(z => z.vrsta == this.vrsta)
+            var zivotinjeJSON = zivotinje.find(z => z.vrsta[0] == this.vrsta)
             this.zivotinje = zivotinjeJSON.z
    
             if (this.sortirajPo == 0) {
@@ -189,15 +190,15 @@ export default {
                 if (this.sortKriterijum == 1) {
                     // rastuce
                     this.zivotinje.sort(function(a, b) {
-                        if (a.starost > b.starost) return 1;
-                        else if (a.starost == b.starost) return 0;
+                        if (a.starost[0] > b.starost[0]) return 1;
+                        else if (a.starost[0] == b.starost[0]) return 0;
                         else return -1;
                     })
                 } 
                 else {
                     this.zivotinje.sort(function(a, b) {
-                        if (a.starost > b.starost) return -1;
-                        else if (a.starost == b.starost) return 0;
+                        if (a.starost[0] > b.starost[0]) return -1;
+                        else if (a.starost[0] == b.starost[0]) return 0;
                         else return 1;
                     })
                 }
@@ -207,22 +208,22 @@ export default {
                 if (this.sortKriterijum == 1) {
                     // rastuce
                     this.zivotinje.sort(function(a, b) {
-                        if (a.naziv > b.naziv) return 1;
-                        else if (a.naziv == b.naziv) return 0;
+                        if (a.naziv[0] > b.naziv[0]) return 1;
+                        else if (a.naziv[0] == b.naziv[0]) return 0;
                         else return -1;
                     })
                 } 
                 else {
                     this.zivotinje.sort(function(a, b) {
-                        if (a.naziv > b.naziv) return -1;
-                        else if (a.naziv == b.naziv) return 0;
+                        if (a.naziv[0] > b.naziv[0]) return -1;
+                        else if (a.naziv[0] == b.naziv[0]) return 0;
                         else return 1;
                     })
                 }
             }
         },
         pretraga() {
-            var zivotinjeJSON = zivotinje.find(z => z.vrsta == this.vrsta)
+            var zivotinjeJSON = zivotinje.find(z => z.vrsta[0] == this.vrsta)
             this.zivotinje = zivotinjeJSON.z
             if (this.kljuc.length == 0) return;
    
@@ -241,13 +242,13 @@ export default {
             else {
                 this.zivotinje = []
                 zivotinjeJSON.z.forEach(z => {
-                    if (z.naziv.toUpperCase().includes(this.kljuc.toUpperCase())) this.zivotinje.push(z)
+                    if (z.naziv[this.jezik].toUpperCase().includes(this.kljuc.toUpperCase())) this.zivotinje.push(z)
                 })
             }
         },
         initData() {
             this.vrsta = this.$route.params.vrsta
-            var zivotinjeJSON = zivotinje.find(z => z.vrsta == this.vrsta)
+            var zivotinjeJSON = zivotinje.find(z => z.vrsta[0] == this.vrsta)
             this.zivotinje = zivotinjeJSON.z
 
             this.jezik = localStorage.getItem('jezik')
@@ -256,6 +257,8 @@ export default {
                 localStorage.setItem('jezik', 0)
             }
             else this.jezik = parseInt(this.jezik)
+
+            this.pravaVrsta = zivotinjeJSON.vrsta[this.jezik]
 
             document.title = this.jezik == 0 ? 'Azil Aska - ' + this.vrsta : 'Azil Aska - ' + this.vrsta
         }

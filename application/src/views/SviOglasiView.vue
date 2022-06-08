@@ -40,7 +40,7 @@
                         <i>{{kom.tekst}}</i>
                     </p>
                     <div class="input-group mb-3">
-                        <input type="text" name="" class="form-control" placeholder="Unesi komentar" v-model="comment[index]">
+                        <input type="text" name="" class="form-control" :placeholder="jezik == 0 ? 'Unesi komentar' : 'Your comment'" v-model="comment[index]">
                         <div class="input-group-append">
                             <button v-if="jezik == 0" class="btn btn-outline-primary" type="button" @click="addComment(oglas, index)">Dodaj</button>
                             <button v-else class="btn btn-outline-primary" type="button" @click="addComment(oglas, index)">Add</button>

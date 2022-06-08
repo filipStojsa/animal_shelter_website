@@ -22,7 +22,8 @@
                 </div>
             </div>
             <div class="row" v-else style="padding:20px;text-align: center;width:100%;font-style: italic;justify-content: center;display:flex;">
-                Trenutno nema komentara.
+                <span v-if="jezik == 0">Trenutno nema komentara.</span>
+                  <span v-else>No comments.</span>
             </div>
         </div>
     </div>
@@ -68,10 +69,23 @@ export default {
     props: [
         'oglas'
     ],
+    data() {
+        return {
+            jezik: 0
+        }
+    },
     methods: {
         izbrisiOglas() {
             alert('obrisanoooo')
         }
     },
+    created() {
+        this.jezik = localStorage.getItem('jezik')
+        if (this.jezik == null) {
+            this.jezik = 0
+            localStorage.setItem('jezik', 0)
+        }
+        else this.jezik = parseInt(this.jezik)
+    }
 }
 </script>

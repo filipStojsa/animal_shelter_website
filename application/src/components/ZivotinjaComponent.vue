@@ -1,9 +1,11 @@
 <template>
     <div id="zivotinja">
-        <span id="naziv"><i class="fa-solid fa-paw"></i>&nbsp;{{ zivotinja.naziv }} </span><hr>
-        {{zivotinja.starost}} starosti
+        <span id="naziv"><i class="fa-solid fa-paw"></i>&nbsp;{{ zivotinja.naziv[jezik] }} </span><hr>
+        <span v-if="jezik == 0">{{zivotinja.starost[jezik]}} starosti</span>
+        <span v-else>{{zivotinja.starost[jezik]}} old</span>
         
-        <button class="btn"><router-link :to="'/zivotinje/' + vrsta + '/' + zivotinja.id" ><i class="fa-solid fa-circle-info"></i>&nbsp;Detalji</router-link></button>
+        <button v-if='jezik == 0' class="btn"><router-link :to="'/zivotinje/' + vrsta + '/' + zivotinja.id" ><i class="fa-solid fa-circle-info"></i>&nbsp;Detalji</router-link></button>
+        <button v-else class="btn"><router-link :to="'/zivotinje/' + vrsta + '/' + zivotinja.id" ><i class="fa-solid fa-circle-info"></i>&nbsp;Details</router-link></button>
     </div>
 </template>
 
@@ -50,6 +52,7 @@ export default {
     props: [
         'vrsta',
         'zivotinja',
+        'jezik'
     ],
     data() {
        return {

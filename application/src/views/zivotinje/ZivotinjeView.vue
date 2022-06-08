@@ -7,12 +7,12 @@
             
             <div class="row centriraj">
                 <div class="col-sm-12">
-                    <router-link :to="'/zivotinje/' + vrsta.vrsta"><h1><i class="fa-solid fa-paw"></i>&nbsp;{{vrsta.vrsta}}</h1></router-link>
+                    <router-link :to="'/zivotinje/' + vrsta.vrsta[0]"><h1><i class="fa-solid fa-paw"></i>&nbsp;{{vrsta.vrsta[this.jezik]}}</h1></router-link>
                     <hr>
                 </div>
                 <div div="col-sm-12 col-lg-4 centriraj" v-for="zivotinja in vrsta.z" :key='zivotinja.id' style="padding:20px"> 
                     <div class="kolona">
-                        <router-link :to="'/zivotinje/' + vrsta.vrsta + '/' + zivotinja.id" ><h4>{{zivotinja.naziv}}</h4></router-link>
+                        <router-link :to="'/zivotinje/' + vrsta.vrsta[0] + '/' + zivotinja.id" ><h4>{{zivotinja.naziv[this.jezik]}}</h4></router-link>
                     </div>
                     
                 </div>

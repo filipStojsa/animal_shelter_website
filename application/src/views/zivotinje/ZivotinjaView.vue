@@ -2,11 +2,12 @@
     <div class="" style="min-height:650px">
         <div class="row breadcrumbs">
             <div class="col-sm-12">
-                <router-link to="/zivotinje">Životinje</router-link>
+                <router-link v-if="jezik == 0" to="/zivotinje">Životinje</router-link>
+                <router-link v-else to="/zivotinje">Animals</router-link>
                 &nbsp;<i class="fa-solid fa-arrow-right"></i>&nbsp;
-                <router-link :to="'/zivotinje/' + this.$route.params.vrsta" >{{this.$route.params.vrsta}}</router-link>&nbsp;<i class="fa-solid fa-arrow-right"></i>&nbsp;
+                <router-link :to="'/zivotinje/' + this.$route.params.vrsta" >{{this.pravaVrsta}}</router-link>&nbsp;<i class="fa-solid fa-arrow-right"></i>&nbsp;
                 <!-- <router-link :to="'/zivotinje/' + this.$route.params.vrsta + '/' + zivotinja.id" >{{zivotinja.naziv}}</router-link>&nbsp; -->
-                {{zivotinja.naziv}}
+                {{zivotinja.naziv[jezik]}}
             </div>
         </div>
         <div class="row zivotinjeRow">
@@ -17,23 +18,30 @@
                     </div>
                     <div class="col-sm-12 col-md-6 centrirajKolonu">
                             <h2>
-                                <i class="fa-solid fa-paw"></i>&nbsp;{{ zivotinja.naziv }}<br>
+                                <i class="fa-solid fa-paw"></i>&nbsp;{{ zivotinja.naziv[jezik] }}<br>
                             </h2>
-                            <i>{{zivotinja.opis}}</i>
+                            <i>{{zivotinja.opis[jezik]}}</i>
                             <hr>
-                            <h5>
+                            <h5 v-if="jezik == 0">
                                 <i class="fa-solid fa-feather-pointed"></i>&nbsp;Težina<br>{{zivotinja.tezina}}
                             </h5>
-                            <hr>
-                            <h5>
-                                <i class="fa-solid fa-feather-pointed"></i>&nbsp;Starost<br>{{zivotinja.starost}}
+                            <h5 v-else>
+                                <i class="fa-solid fa-feather-pointed"></i>&nbsp;Weight<br>{{zivotinja.tezina}}
                             </h5>
                             <hr>
-                            <v-button class="btn" id="prikazi" @click="prikaziSlike()"><i class="fa-solid fa-camera"></i>&nbsp;Prikaži galeriju</v-button>
+                            <h5 v-if="jezik == 0">
+                                <i class="fa-solid fa-feather-pointed"></i>&nbsp;Starost<br>{{zivotinja.starost[jezik]}}
+                            </h5>
+                            <h5 v-else>
+                                <i class="fa-solid fa-feather-pointed"></i>&nbsp;Age<br>{{zivotinja.starost[jezik]}}
+                            </h5>
+                            <hr>
+                            <v-button v-if='jezik == 0' class="btn" id="prikazi" @click="prikaziSlike()"><i class="fa-solid fa-camera"></i>&nbsp;Prikaži galeriju</v-button>
+                            <v-button v-else class="btn" id="prikazi" @click="prikaziSlike()"><i class="fa-solid fa-camera"></i>&nbsp;Show galery</v-button>
                     </div>
                     
                 </div>
-                <div class="row" id="galerijaSlika" style="display: none">
+                <div v-if='jezik == 0' class="row" id="galerijaSlika" style="display: none">
                     <div class="col-sm-12">
                         <h3><i class="fa-solid fa-image"></i>&nbsp;Galerija</h3>
                         <hr>
@@ -44,6 +52,19 @@
                     <div class="col-sm-12">
                         <hr>
                         <button class="btn dugme" @click="nazad()"><i class="fa-solid fa-arrow-left"></i>&nbsp;Nazad</button>
+                    </div>
+                </div>
+                <div v-else class="row" id="galerijaSlika" style="display: none">
+                    <div class="col-sm-12">
+                        <h3><i class="fa-solid fa-image"></i>&nbsp;Galery</h3>
+                        <hr>
+                    </div>
+                    <div class="col-sm-12">
+                        <iframe width="560" height="315" :src="zivotinja.video" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen style="border-radius:5px"></iframe>
+                    </div>
+                    <div class="col-sm-12">
+                        <hr>
+                        <button class="btn dugme" @click="nazad()"><i class="fa-solid fa-arrow-left"></i>&nbsp;Back</button>
                     </div>
                 </div>
             </div>
@@ -127,6 +148,8 @@ export default {
     data() {
         return {
             zivotinja: {},
+            jezik: 0,
+            pravaVrsta: ''
         }
     },
 
@@ -137,10 +160,11 @@ export default {
         },
         initData() {
             var vrsta = this.$route.params.vrsta
+            
             var id = this.$route.params.id
-            this.zivotinja = zivotinje.find(z => z.vrsta == vrsta)['z'].find(z => z.id == id)
+            this.zivotinja = zivotinje.find(z => z.vrsta[0] == vrsta)['z'].find(z => z.id == id)
 
-            document.title = 'Azil Aska - ' + this.zivotinja.naziv
+            document.title = 'Azil Aska - ' + this.zivotinja.naziv[this.jezik]
         },
         nazad() {
             $('#galerijaSlika').hide(800)
@@ -151,6 +175,15 @@ export default {
     created(){
         this.initData()
         // this.$watch(() => this.$route.params, this.initData)
+
+        this.jezik = localStorage.getItem('jezik')
+        if (this.jezik == null) {
+            this.jezik = 0
+            localStorage.setItem('jezik', 0)
+        }
+        else this.jezik = parseInt(this.jezik)
+
+        this.pravaVrsta = zivotinje.find(z => z.vrsta[0] == this.$route.params.vrsta)['vrsta'][this.jezik]
     },
 
     mounted() {
